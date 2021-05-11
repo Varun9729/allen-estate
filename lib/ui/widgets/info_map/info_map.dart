@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:map_launcher/map_launcher.dart';
 import 'package:mapbox_search/mapbox_search.dart';
 import 'package:mapbox_search_flutter/mapbox_search_flutter.dart' as mapbox;
+import 'package:color/color.dart';
 
 // TODO: Cleanup/simplify code
 class InfoMap extends StatelessWidget {
