@@ -5,7 +5,8 @@ import 'package:flutter/rendering.dart';
 class CustomRaisedButton extends StatelessWidget {
   static final VisualDensity visualDensity = VisualDensity();
   final BoxConstraints effectiveConstraints =
-      visualDensity.effectiveConstraints(const BoxConstraints(minWidth: 88.0, minHeight: 36.0));
+      visualDensity.effectiveConstraints(
+          const BoxConstraints(minWidth: 88.0, minHeight: 36.0));
   static final Offset densityAdjustment = visualDensity.baseSizeAdjustment;
   final EdgeInsetsGeometry padding = EdgeInsets.only(
     left: densityAdjustment.dx,
@@ -48,7 +49,6 @@ class CustomRaisedButton extends StatelessWidget {
       constraints: effectiveConstraints,
       child: Theme(
         data: theme.copyWith(textTheme: _textTheme),
-        isMaterialAppTheme: true,
         child: Material(
           type: MaterialType.button,
           clipBehavior: Clip.antiAlias,
@@ -69,7 +69,8 @@ class CustomRaisedButton extends StatelessWidget {
               onTap: onPressed,
               child: Container(
                 padding: padding,
-                constraints: BoxConstraints(minWidth: 96, maxWidth: double.infinity),
+                constraints:
+                    BoxConstraints(minWidth: 96, maxWidth: double.infinity),
                 child: Center(
                   widthFactor: 1.0,
                   heightFactor: 1.0,
