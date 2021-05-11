@@ -11,18 +11,20 @@ class AboutUsScreen extends StatelessWidget {
   final void Function() onNavigateToHome;
   final void Function() onNavigateToWhereToFindUs;
 
-  final String _fullName = 'William Allen';
-  final String _title = 'Software Developer';
-  final String _email = 'allenwilliamdev@gmail.com';
+  final String _fullName = 'Varun Kashyap';
+  final String _title = 'Flutter Software Developer';
+  final String _email = 'varun9729@gmail.com';
   final String _profile =
-      'Passionate and experienced software developer with great enthusiasm for UI/UX. Adept to software architecture and design patterns for more testable and maintainable code. With experience working as part of, and leading, small teams with members of different areas of specialties.';
-  final String _address = 'Venezuela';
+      'I am currently pursuing my Master\'s in Computer Science. Aspiring Flutter Developer. Interning at State Department of Healthcare and Family Services. Learning by doing what works for me and flutter is no exception. This is part of my take home assignment for Vinofy.';
+  final String _address = 'Springfield';
 
   AboutUsScreen({this.onNavigateToHome, this.onNavigateToWhereToFindUs});
 
   void _onEmailTap() {
-    final Uri _emailLaunchUri =
-        Uri(scheme: 'mailto', path: _email, queryParameters: {'subject': 'Allen-Real-Estate-Mobile-App'});
+    final Uri _emailLaunchUri = Uri(
+        scheme: 'mailto',
+        path: _email,
+        queryParameters: {'subject': 'Allen-Real-Estate-Mobile-App'});
     urlLauncher.launch(_emailLaunchUri.toString());
   }
 
@@ -42,13 +44,15 @@ class AboutUsScreen extends StatelessWidget {
         bottomNavigationBar: CustomBottomNavigationBar(
           onNavigateToHome: onNavigateToHome,
           onNavigateToWhereToFindUs: onNavigateToWhereToFindUs,
-          elevation: context.watch<BarsElevationViewModel>().bottomAppBarElevation,
+          elevation:
+              context.watch<BarsElevationViewModel>().bottomAppBarElevation,
           selection: BottomNavBarSelection.aboutUs,
         ),
         body: Theme(
           data: theme.copyWith(accentColor: theme.backgroundColor),
           child: ListView(
-            controller: context.watch<BarsElevationViewModel>().scrollController,
+            controller:
+                context.watch<BarsElevationViewModel>().scrollController,
             children: [
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16),
@@ -77,7 +81,7 @@ class AboutUsScreen extends StatelessWidget {
             shape: BoxShape.circle,
           ),
           child: CustomNetworkImage(
-            imageUrl: 'https://pbs.twimg.com/profile_images/1167461348684566530/p8mse0BI_400x400.jpg',
+            imageUrl: 'https://i.imgur.com/m1uq3Emt.jpg',
             backgroundColor: Colors.grey,
             fit: BoxFit.cover,
           ),
@@ -112,8 +116,8 @@ class AboutUsScreen extends StatelessWidget {
         ),
         Container(height: 24),
         InfoMap(
-          lat: 8.315160,
-          long: -62.714939,
+          lat: 39.799999,
+          long: -89.650002,
           zoomLevel: 3,
         ),
         _buildMapFooter(textTheme, theme),
@@ -135,8 +139,7 @@ class AboutUsScreen extends StatelessWidget {
           constraints: BoxConstraints.loose(Size(16, 16)),
           child: CustomNetworkImage(
             fit: BoxFit.contain,
-            imageUrl:
-                'https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Flag-map_of_Venezuela.svg/696px-Flag-map_of_Venezuela.svg.png',
+            imageUrl: 'https://i.imgur.com/cmacq4Js.png',
           ),
         ),
       ],
