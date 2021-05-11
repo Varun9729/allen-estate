@@ -27,7 +27,8 @@ class AllenEstateApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = buildAppTheme();
     // Sets system status bar color tu transparent
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: theme.backgroundColor));
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(statusBarColor: theme.backgroundColor));
 
     return MaterialApp(
       title: 'Allen Estate',

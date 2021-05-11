@@ -35,10 +35,12 @@ dependencies:
   provider: ^4.3.1
   # Networking
   dio: ^3.0.10
+  connectivity: ^3.0.3
   # Storage
   flutter_secure_storage: ^3.3.3
   # Widgets
   mapbox_search: ^2.0.0
+  mapbox_search_flutter: ^1.0.6+1
   map_launcher: ^0.12.0
   cached_network_image: ^2.2.0+1
   flutter_svg: ^0.18.0
@@ -60,7 +62,7 @@ dev_dependencies:
   # App wrappers
   device_preview: ^0.4.5
   # Code generators
-  build_runner: ^1.10.0
+  build_runner: ^1.10.1
   auto_route_generator: ^0.6.7
   injectable_generator: ^1.0.3
 
