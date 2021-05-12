@@ -27,9 +27,6 @@ class NetworkSensitive extends StatelessWidget {
           Icons.wifi_off_outlined,
           size: 100,
         ),
-        // Image(
-        // image: AssetImage('assets/nowifi.png'),
-        // ),
       );
     }
     return child;

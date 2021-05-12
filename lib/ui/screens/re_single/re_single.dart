@@ -39,7 +39,8 @@ class ReEstateSingleScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: theme.backgroundColor,
-      appBar: state != AsyncState.done ? AppBar(iconTheme: theme.iconTheme) : null,
+      appBar:
+          state != AsyncState.done ? AppBar(iconTheme: theme.iconTheme) : null,
       body: Theme(
         data: theme.copyWith(accentColor: Colors.white),
         child: AsyncStateManager(
@@ -61,14 +62,16 @@ class ReEstateSingleScreen extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Text(
                     re.shortAddress,
-                    style: textTheme.headline4.copyWith(color: theme.primaryColor),
+                    style:
+                        textTheme.headline4.copyWith(color: theme.primaryColor),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
                   child: Text(
                     _nFormat.format(re.price),
-                    style: textTheme.headline2.copyWith(color: theme.primaryColor),
+                    style:
+                        textTheme.headline2.copyWith(color: theme.primaryColor),
                   ),
                 ),
                 Padding(
@@ -90,8 +93,10 @@ class ReEstateSingleScreen extends StatelessWidget {
                   child: Divider(),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
-                  child: DescriptionPreview(text: re.description, onTap: onNavigateToDescription),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
+                  child: DescriptionPreview(
+                      text: re.description, onTap: onNavigateToDescription),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -107,10 +112,13 @@ class ReEstateSingleScreen extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Text('Popular', style: textTheme.headline5.copyWith(color: theme.primaryColor)),
+                  child: Text('Popular',
+                      style: textTheme.headline5
+                          .copyWith(color: theme.primaryColor)),
                 ),
                 Container(height: 16),
-                ReCarousel(realEstateList: carouselRealEstateList, onTap: onReCardTap),
+                ReCarousel(
+                    realEstateList: carouselRealEstateList, onTap: onReCardTap),
                 Container(height: 24),
               ]))
             ],
@@ -166,7 +174,8 @@ class ReEstateSingleScreen extends StatelessWidget {
 
   Widget _buildAddress(BuildContext context) {
     RealEstate re = realEstate;
-    String address = '${re.street ?? ''}, ${re.city ?? ''} ${re.postalCode ?? ''}, ${re.countryCode ?? ''}';
+    String address =
+        '${re.street ?? ''}, ${re.city ?? ''} ${re.postalCode ?? ''}, ${re.countryCode ?? ''}';
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
 

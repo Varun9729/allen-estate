@@ -8,6 +8,8 @@ import 'package:allenrealestateflutter/ui/widgets/carousels/re_category_carousel
 import 'package:allenrealestateflutter/ui/widgets/custom_bottom_navigation_bar/custom_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:allenrealestateflutter/core/services/real_estate_service/connectivity_services/connectivity_service.dart';
+import 'package:allenrealestateflutter/ui/widgets/connectivity_addon/network_sensitivity.dart';
 
 const tag = 'HomeScreen';
 
@@ -43,25 +45,30 @@ class HomeScreen extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     final primaryColor = theme.primaryColor;
 
-    return ListenableProvider<BarsElevationViewModel>(
-        create: (_) => BarsElevationViewModel());
-
-    builder:
-    (context, _) => Scaffold(
-          backgroundColor: theme.backgroundColor,
-          appBar: generateIdleSearchAppBar(
-              context: context,
-              onTap: onSearch,
-              elevation:
-                  context.watch<BarsElevationViewModel>().topAppBarElevation),
-          bottomNavigationBar: CustomBottomNavigationBar(
+    return MultiProvider(
+      providers: [
+        ListenableProvider<BarsElevationViewModel>(
+            create: (_) => BarsElevationViewModel()),
+        StreamProvider<ConnectivityStatus>(
+            create: (_) =>
+                ConnectivityService().connectionStatusController.stream)
+      ],
+      builder: (context, _) => Scaffold(
+        backgroundColor: theme.backgroundColor,
+        appBar: generateIdleSearchAppBar(
+            context: context,
+            onTap: onSearch,
             elevation:
-                context.watch<BarsElevationViewModel>().bottomAppBarElevation,
-            onNavigateToAboutUs: onNavigateToAboutUs,
-            onNavigateToWhereToFindUs: onNavigateToWhereToFindUs,
-            selection: BottomNavBarSelection.home,
-          ),
-          body: AsyncStateManager(
+                context.watch<BarsElevationViewModel>().topAppBarElevation),
+        bottomNavigationBar: CustomBottomNavigationBar(
+          elevation:
+              context.watch<BarsElevationViewModel>().bottomAppBarElevation,
+          onNavigateToAboutUs: onNavigateToAboutUs,
+          onNavigateToWhereToFindUs: onNavigateToWhereToFindUs,
+          selection: BottomNavBarSelection.home,
+        ),
+        body: NetworkSensitive(
+          child: AsyncStateManager(
             state: state,
             onRetry: onRetry,
             builder: (BuildContext context) => Theme(
@@ -101,7 +108,9 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
           ),
-        );
+        ),
+      ),
+    );
   }
 
   Widget _buildHPadding({@required Widget child, double padding = 16}) {
