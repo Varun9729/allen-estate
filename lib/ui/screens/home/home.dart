@@ -44,13 +44,19 @@ class HomeScreen extends StatelessWidget {
     final primaryColor = theme.primaryColor;
 
     return ListenableProvider<BarsElevationViewModel>(
-      create: (_) => BarsElevationViewModel(),
-      builder: (context, _) => Scaffold(
+        create: (_) => BarsElevationViewModel());
+
+    builder:
+    (context, _) => Scaffold(
           backgroundColor: theme.backgroundColor,
           appBar: generateIdleSearchAppBar(
-              context: context, onTap: onSearch, elevation: context.watch<BarsElevationViewModel>().topAppBarElevation),
+              context: context,
+              onTap: onSearch,
+              elevation:
+                  context.watch<BarsElevationViewModel>().topAppBarElevation),
           bottomNavigationBar: CustomBottomNavigationBar(
-            elevation: context.watch<BarsElevationViewModel>().bottomAppBarElevation,
+            elevation:
+                context.watch<BarsElevationViewModel>().bottomAppBarElevation,
             onNavigateToAboutUs: onNavigateToAboutUs,
             onNavigateToWhereToFindUs: onNavigateToWhereToFindUs,
             selection: BottomNavBarSelection.home,
@@ -61,33 +67,41 @@ class HomeScreen extends StatelessWidget {
             builder: (BuildContext context) => Theme(
               data: theme.copyWith(accentColor: Colors.white),
               child: ListView(
-                controller: context.watch<BarsElevationViewModel>().scrollController,
+                controller:
+                    context.watch<BarsElevationViewModel>().scrollController,
                 children: <Widget>[
                   Container(height: 6),
                   _buildHPadding(
-                    child: Text('Find your home', style: textTheme.headline3.copyWith(color: primaryColor)),
+                    child: Text('Find your home',
+                        style:
+                            textTheme.headline3.copyWith(color: primaryColor)),
                   ),
                   Container(height: 24),
                   _buildHPadding(
                     child: GestureDetector(
                       onTap: onPopularTap,
-                      child: Text('Popular', style: textTheme.headline5.copyWith(color: primaryColor)),
+                      child: Text('Popular',
+                          style: textTheme.headline5
+                              .copyWith(color: primaryColor)),
                     ),
                   ),
                   Container(height: 16),
                   ReCarousel(realEstateList: reList, onTap: onReCardTap),
                   Container(height: 32),
                   _buildHPadding(
-                    child: Text('Categories', style: textTheme.headline5.copyWith(color: primaryColor)),
+                    child: Text('Categories',
+                        style:
+                            textTheme.headline5.copyWith(color: primaryColor)),
                   ),
                   Container(height: 16),
-                  ReCategoryCarousel(categoryList: reCategoryList, onTap: onReCategoryCardTap),
+                  ReCategoryCarousel(
+                      categoryList: reCategoryList, onTap: onReCategoryCardTap),
                   Container(height: 16),
                 ],
               ),
             ),
-          )),
-    );
+          ),
+        );
   }
 
   Widget _buildHPadding({@required Widget child, double padding = 16}) {
