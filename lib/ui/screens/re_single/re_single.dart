@@ -8,6 +8,9 @@ import 'package:allenrealestateflutter/ui/widgets/info_map/info_map.dart';
 import 'package:allenrealestateflutter/ui/widgets/re_info_icons/re_info_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:allenrealestateflutter/core/services/real_estate_service/connectivity_services/connectivity_service.dart';
+import 'package:allenrealestateflutter/ui/widgets/connectivity_addon/network_sensitivity.dart';
+import 'package:provider/provider.dart';
 
 class ReEstateSingleScreen extends StatelessWidget {
   final AsyncState state;
@@ -37,91 +40,99 @@ class ReEstateSingleScreen extends StatelessWidget {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
 
-    return Scaffold(
-      backgroundColor: theme.backgroundColor,
-      appBar:
-          state != AsyncState.done ? AppBar(iconTheme: theme.iconTheme) : null,
-      body: Theme(
-        data: theme.copyWith(accentColor: Colors.white),
-        child: AsyncStateManager(
-          state: state,
-          onRetry: onRetry,
-          builder: (context) => CustomScrollView(
-            slivers: [
-              _buildSliverAppBar(context),
-              SliverList(
-                  delegate: SliverChildListDelegate([
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
-                  child: Text(
-                    '${re.type.toCapitalized()} ${re.dealType.name} in',
-                    style: textTheme.subtitle2,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Text(
-                    re.shortAddress,
-                    style:
-                        textTheme.headline4.copyWith(color: theme.primaryColor),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
-                  child: Text(
-                    _nFormat.format(re.price),
-                    style:
-                        textTheme.headline2.copyWith(color: theme.primaryColor),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(32, 0, 32, 24),
-                  child: ReInfoIcons(
-                    bathrooms: re.bathrooms,
-                    parkingSlots: re.parkingSlots,
-                    bedrooms: re.bedrooms,
-                    sqrSpace: re.sqrSpace,
-                    config: InfoIconsConfig.defaultConfig(
-                      layout: InfoIconsLayout.row,
-                      iconSize: 16,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+    return StreamProvider<ConnectivityStatus>(
+      create: (context) =>
+          ConnectivityService().connectionStatusController.stream,
+      child: Scaffold(
+        backgroundColor: theme.backgroundColor,
+        appBar: state != AsyncState.done
+            ? AppBar(iconTheme: theme.iconTheme)
+            : null,
+        body: Theme(
+          data: theme.copyWith(accentColor: Colors.white),
+          child: NetworkSensitive(
+            child: AsyncStateManager(
+              state: state,
+              onRetry: onRetry,
+              builder: (context) => CustomScrollView(
+                slivers: [
+                  _buildSliverAppBar(context),
+                  SliverList(
+                      delegate: SliverChildListDelegate([
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+                      child: Text(
+                        '${re.type.toCapitalized()} ${re.dealType.name} in',
+                        style: textTheme.subtitle2,
+                      ),
                     ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24),
-                  child: Divider(),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
-                  child: DescriptionPreview(
-                      text: re.description, onTap: onNavigateToDescription),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24),
-                  child: Divider(),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 32, 16, 0),
-                  child: InfoMap(lat: re.lat, long: re.long),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
-                  child: _buildAddress(context),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Text('Popular',
-                      style: textTheme.headline5
-                          .copyWith(color: theme.primaryColor)),
-                ),
-                Container(height: 16),
-                ReCarousel(
-                    realEstateList: carouselRealEstateList, onTap: onReCardTap),
-                Container(height: 24),
-              ]))
-            ],
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Text(
+                        re.shortAddress,
+                        style: textTheme.headline4
+                            .copyWith(color: theme.primaryColor),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
+                      child: Text(
+                        _nFormat.format(re.price),
+                        style: textTheme.headline2
+                            .copyWith(color: theme.primaryColor),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(32, 0, 32, 24),
+                      child: ReInfoIcons(
+                        bathrooms: re.bathrooms,
+                        parkingSlots: re.parkingSlots,
+                        bedrooms: re.bedrooms,
+                        sqrSpace: re.sqrSpace,
+                        config: InfoIconsConfig.defaultConfig(
+                          layout: InfoIconsLayout.row,
+                          iconSize: 16,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24),
+                      child: Divider(),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 24, horizontal: 16),
+                      child: DescriptionPreview(
+                          text: re.description, onTap: onNavigateToDescription),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24),
+                      child: Divider(),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(16, 32, 16, 0),
+                      child: InfoMap(lat: re.lat, long: re.long),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
+                      child: _buildAddress(context),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Text('Popular',
+                          style: textTheme.headline5
+                              .copyWith(color: theme.primaryColor)),
+                    ),
+                    Container(height: 16),
+                    ReCarousel(
+                        realEstateList: carouselRealEstateList,
+                        onTap: onReCardTap),
+                    Container(height: 24),
+                  ]))
+                ],
+              ),
+            ),
           ),
         ),
       ),
